@@ -14,6 +14,6 @@ namespace HoMiHofverwaltungssoftware.Data
         {
         }
 
-        public DbSet<HoMiHofverwaltungssoftware.Models.Cows> Cows { get; set; } = default!;
+        public DbSet<HoMiHofverwaltungssoftware.Models.AnimalModel> AnimalModel { get; set; } = default!;
     }
 }

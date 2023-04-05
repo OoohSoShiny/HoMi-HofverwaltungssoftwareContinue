@@ -4,7 +4,6 @@ using HoMiHofverwaltungssoftware.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<HoMiHofverwaltungssoftwareContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("HoMiHofverwaltungssoftwareContext") ?? throw new InvalidOperationException("Connection string 'HoMiHofverwaltungssoftwareContext' not found.")));
-
 // Add services to the container.
 
 builder.Services.AddControllers();

@@ -12,55 +12,55 @@ namespace HoMiHofverwaltungssoftware.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ControllerCows : ControllerBase
+    public class AnimalsController : ControllerBase
     {
         private readonly HoMiHofverwaltungssoftwareContext _context;
 
-        public ControllerCows(HoMiHofverwaltungssoftwareContext context)
+        public AnimalsController(HoMiHofverwaltungssoftwareContext context)
         {
             _context = context;
         }
 
-        // GET: api/ControllerCows
+        // GET: api/Animals
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cows>>> GetCows()
+        public async Task<ActionResult<IEnumerable<AnimalModel>>> GetAnimalModel()
         {
-          if (_context.Cows == null)
+          if (_context.AnimalModel == null)
           {
               return NotFound();
           }
-            return await _context.Cows.ToListAsync();
+            return await _context.AnimalModel.ToListAsync();
         }
 
-        // GET: api/ControllerCows/5
+        // GET: api/Animals/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cows>> GetCows(int id)
+        public async Task<ActionResult<AnimalModel>> GetAnimalModel(int id)
         {
-          if (_context.Cows == null)
+          if (_context.AnimalModel == null)
           {
               return NotFound();
           }
-            var cows = await _context.Cows.FindAsync(id);
+            var animalModel = await _context.AnimalModel.FindAsync(id);
 
-            if (cows == null)
+            if (animalModel == null)
             {
                 return NotFound();
             }
 
-            return cows;
+            return animalModel;
         }
 
-        // PUT: api/ControllerCows/5
+        // PUT: api/Animals/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCows(int id, Cows cows)
+        public async Task<IActionResult> PutAnimalModel(int id, AnimalModel animalModel)
         {
-            if (id != cows.Id)
+            if (id != animalModel.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(cows).State = EntityState.Modified;
+            _context.Entry(animalModel).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CowsExists(id))
+                if (!AnimalModelExists(id))
                 {
                     return NotFound();
                 }
@@ -81,44 +81,44 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/ControllerCows
+        // POST: api/Animals
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Cows>> PostCows(Cows cows)
+        public async Task<ActionResult<AnimalModel>> PostAnimalModel(AnimalModel animalModel)
         {
-          if (_context.Cows == null)
+          if (_context.AnimalModel == null)
           {
-              return Problem("Entity set 'HoMiHofverwaltungssoftwareContext.Cows'  is null.");
+              return Problem("Entity set 'HoMiHofverwaltungssoftwareContext.AnimalModel'  is null.");
           }
-            _context.Cows.Add(cows);
+            _context.AnimalModel.Add(animalModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCows", new { id = cows.Id }, cows);
+            return CreatedAtAction("GetAnimalModel", new { id = animalModel.Id }, animalModel);
         }
 
-        // DELETE: api/ControllerCows/5
+        // DELETE: api/Animals/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCows(int id)
+        public async Task<IActionResult> DeleteAnimalModel(int id)
         {
-            if (_context.Cows == null)
+            if (_context.AnimalModel == null)
             {
                 return NotFound();
             }
-            var cows = await _context.Cows.FindAsync(id);
-            if (cows == null)
+            var animalModel = await _context.AnimalModel.FindAsync(id);
+            if (animalModel == null)
             {
                 return NotFound();
             }
 
-            _context.Cows.Remove(cows);
+            _context.AnimalModel.Remove(animalModel);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CowsExists(int id)
+        private bool AnimalModelExists(int id)
         {
-            return (_context.Cows?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.AnimalModel?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
