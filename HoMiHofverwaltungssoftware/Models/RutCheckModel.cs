@@ -2,10 +2,11 @@
 
 namespace HoMiHofverwaltungssoftware.Models
 {
-    [Table("Weidegruppen")]
-    public class PastureGroupsModel
+    [Table("Brunftbeobachtung")]
+    public class RutCheckModel
     {
         public int Id { get; set; }
-        public string? Designation { get; set; }
+        public int Tier_Id { get; set; }
+        public DateTime? Termin { get; set; }
     }
 }

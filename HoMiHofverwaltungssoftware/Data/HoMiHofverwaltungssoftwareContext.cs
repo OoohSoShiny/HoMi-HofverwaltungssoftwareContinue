@@ -15,5 +15,11 @@ namespace HoMiHofverwaltungssoftware.Data
         }
 
         public DbSet<HoMiHofverwaltungssoftware.Models.AnimalModel> AnimalModel { get; set; } = default!;
+
+        public DbSet<HoMiHofverwaltungssoftware.Models.MatingModel>? MatingModel { get; set; }
+
+        public DbSet<HoMiHofverwaltungssoftware.Models.AnimalNotesModel>? AnimalNotesModel { get; set; }
+
+        public DbSet<HoMiHofverwaltungssoftware.Models.PastureGroupConnectorModel>? PastureGroupConnectorModel { get; set; }
     }
 }

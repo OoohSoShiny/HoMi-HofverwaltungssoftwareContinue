@@ -12,16 +12,16 @@ namespace HoMiHofverwaltungssoftware.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AnimalsController : ControllerBase
+    public class AnimalModelsController : ControllerBase
     {
         private readonly HoMiHofverwaltungssoftwareContext _context;
 
-        public AnimalsController(HoMiHofverwaltungssoftwareContext context)
+        public AnimalModelsController(HoMiHofverwaltungssoftwareContext context)
         {
             _context = context;
         }
 
-        // GET: api/Animals
+        // GET: api/AnimalModels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AnimalModel>>> GetAnimalModel()
         {
@@ -32,7 +32,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return await _context.AnimalModel.ToListAsync();
         }
 
-        // GET: api/Animals/5
+        // GET: api/AnimalModels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AnimalModel>> GetAnimalModel(int id)
         {
@@ -50,7 +50,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return animalModel;
         }
 
-        // PUT: api/Animals/5
+        // PUT: api/AnimalModels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAnimalModel(int id, AnimalModel animalModel)
@@ -81,7 +81,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/Animals
+        // POST: api/AnimalModels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<AnimalModel>> PostAnimalModel(AnimalModel animalModel)
@@ -96,7 +96,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return CreatedAtAction("GetAnimalModel", new { id = animalModel.Id }, animalModel);
         }
 
-        // DELETE: api/Animals/5
+        // DELETE: api/AnimalModels/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAnimalModel(int id)
         {

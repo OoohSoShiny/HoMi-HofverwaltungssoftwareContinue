@@ -1,5 +1,8 @@
-﻿namespace HoMiHofverwaltungssoftware.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace HoMiHofverwaltungssoftware.Models
 {
+    [Table("Stallnummern")]
     public class StableModel
     {
         public int Id { get; set; }

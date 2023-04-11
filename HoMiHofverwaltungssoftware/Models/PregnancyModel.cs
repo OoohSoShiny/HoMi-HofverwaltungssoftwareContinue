@@ -1,5 +1,8 @@
-﻿namespace HoMiHofverwaltungssoftware.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace HoMiHofverwaltungssoftware.Models
 {
+    [Table("Deckungen")]
     public class PregnancyModel
     {
         public int Id { get; set; }

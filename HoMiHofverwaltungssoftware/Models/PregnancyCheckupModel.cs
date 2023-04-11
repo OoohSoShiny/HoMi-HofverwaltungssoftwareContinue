@@ -2,10 +2,11 @@
 
 namespace HoMiHofverwaltungssoftware.Models
 {
-    [Table("Weidegruppen")]
-    public class PastureGroupsModel
+    [Table("Trächtigkeitsuntersuchung")]
+    public class PregnancyCheckupModel
     {
         public int Id { get; set; }
-        public string? Designation { get; set; }
+        public DateTime? Termin { get; set; }
     }
 }
+

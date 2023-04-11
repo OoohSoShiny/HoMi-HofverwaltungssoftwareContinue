@@ -1,5 +1,8 @@
-﻿namespace HoMiHofverwaltungssoftware.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace HoMiHofverwaltungssoftware.Models
 {
+    [Table("Weiden")]
     public class PastureModel
     {
         public int Id { get; set; }
