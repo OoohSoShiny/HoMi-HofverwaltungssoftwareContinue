@@ -26,7 +26,7 @@ namespace HoMiHofverwaltungssoftware.Data
 
         public DbSet<HoMiHofverwaltungssoftware.Models.PastureModel>? PastureModel { get; set; }
 
-        public DbSet<HoMiHofverwaltungssoftware.Models.PastureTimes>? PastureTimes { get; set; }
+        public DbSet<HoMiHofverwaltungssoftware.Models.PastureTimesModel>? PastureTimes { get; set; }
 
         public DbSet<HoMiHofverwaltungssoftware.Models.PregnancyCheckupModel>? PregnancyCheckupModel { get; set; }
 

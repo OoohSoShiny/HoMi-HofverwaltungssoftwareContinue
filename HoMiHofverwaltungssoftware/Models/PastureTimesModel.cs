@@ -3,7 +3,7 @@
 namespace HoMiHofverwaltungssoftware.Models
 {
     [Table("Weidezeiten")]
-    public class PastureTimes
+    public class PastureTimesModel
     {
         public int Id { get; set; }
         public int PastureId { get; set; }

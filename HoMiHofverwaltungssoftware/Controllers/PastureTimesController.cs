@@ -23,7 +23,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
 
         // GET: api/PastureTimes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PastureTimes>>> GetPastureTimes()
+        public async Task<ActionResult<IEnumerable<PastureTimesModel>>> GetPastureTimes()
         {
           if (_context.PastureTimes == null)
           {
@@ -34,7 +34,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
 
         // GET: api/PastureTimes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PastureTimes>> GetPastureTimes(int id)
+        public async Task<ActionResult<PastureTimesModel>> GetPastureTimes(int id)
         {
           if (_context.PastureTimes == null)
           {
@@ -53,7 +53,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
         // PUT: api/PastureTimes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPastureTimes(int id, PastureTimes pastureTimes)
+        public async Task<IActionResult> PutPastureTimes(int id, PastureTimesModel pastureTimes)
         {
             if (id != pastureTimes.Id)
             {
@@ -84,7 +84,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
         // POST: api/PastureTimes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<PastureTimes>> PostPastureTimes(PastureTimes pastureTimes)
+        public async Task<ActionResult<PastureTimesModel>> PostPastureTimes(PastureTimesModel pastureTimes)
         {
           if (_context.PastureTimes == null)
           {
