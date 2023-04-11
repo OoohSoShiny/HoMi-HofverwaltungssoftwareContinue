@@ -21,5 +21,19 @@ namespace HoMiHofverwaltungssoftware.Data
         public DbSet<HoMiHofverwaltungssoftware.Models.AnimalNotesModel>? AnimalNotesModel { get; set; }
 
         public DbSet<HoMiHofverwaltungssoftware.Models.PastureGroupConnectorModel>? PastureGroupConnectorModel { get; set; }
+
+        public DbSet<HoMiHofverwaltungssoftware.Models.PastureGroupsModel>? PastureGroupsModel { get; set; }
+
+        public DbSet<HoMiHofverwaltungssoftware.Models.PastureModel>? PastureModel { get; set; }
+
+        public DbSet<HoMiHofverwaltungssoftware.Models.PastureTimes>? PastureTimes { get; set; }
+
+        public DbSet<HoMiHofverwaltungssoftware.Models.PregnancyCheckupModel>? PregnancyCheckupModel { get; set; }
+
+        public DbSet<HoMiHofverwaltungssoftware.Models.RutCheckModel>? RutCheckModel { get; set; }
+
+        public DbSet<HoMiHofverwaltungssoftware.Models.StableModel>? StableModel { get; set; }
+
+        public DbSet<HoMiHofverwaltungssoftware.Models.OrderGroupsModel>? OrderGroupsModel { get; set; }
     }
 }
