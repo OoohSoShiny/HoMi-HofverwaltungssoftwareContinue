@@ -2,6 +2,8 @@
 
 namespace HoMiHofverwaltungssoftware.Models
 {
+    //Baseline for Animals
+
     [Table("Tiere")]
     public class AnimalModel
     {

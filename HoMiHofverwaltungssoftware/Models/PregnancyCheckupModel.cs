@@ -2,7 +2,7 @@
 
 namespace HoMiHofverwaltungssoftware.Models
 {
-    [Table("Trächtigkeitsuntersuchung")]
+    [Table("Traechtigkeitsuntersuchung")]
     public class PregnancyCheckupModel
     {
         public int Id { get; set; }
@@ -17,4 +17,3 @@ namespace HoMiHofverwaltungssoftware.Models
         }
     }
 }
-

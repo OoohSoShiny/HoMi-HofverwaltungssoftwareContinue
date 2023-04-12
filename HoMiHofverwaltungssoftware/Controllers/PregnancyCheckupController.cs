@@ -12,16 +12,16 @@ namespace HoMiHofverwaltungssoftware.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PregnancyCheckupController : ControllerBase
+    public class PregnancyCheckupModelsController : ControllerBase
     {
         private readonly HoMiHofverwaltungssoftwareContext _context;
 
-        public PregnancyCheckupController(HoMiHofverwaltungssoftwareContext context)
+        public PregnancyCheckupModelsController(HoMiHofverwaltungssoftwareContext context)
         {
             _context = context;
         }
 
-        // GET: api/PregnancyCheckup
+        // GET: api/PregnancyCheckupModels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PregnancyCheckupModel>>> GetPregnancyCheckupModel()
         {
@@ -32,7 +32,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return await _context.PregnancyCheckupModel.ToListAsync();
         }
 
-        // GET: api/PregnancyCheckup/5
+        // GET: api/PregnancyCheckupModels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PregnancyCheckupModel>> GetPregnancyCheckupModel(int id)
         {
@@ -50,7 +50,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return pregnancyCheckupModel;
         }
 
-        // PUT: api/PregnancyCheckup/5
+        // PUT: api/PregnancyCheckupModels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPregnancyCheckupModel(int id, PregnancyCheckupModel pregnancyCheckupModel)
@@ -81,7 +81,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/PregnancyCheckup
+        // POST: api/PregnancyCheckupModels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<PregnancyCheckupModel>> PostPregnancyCheckupModel(PregnancyCheckupModel pregnancyCheckupModel)
@@ -96,7 +96,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return CreatedAtAction("GetPregnancyCheckupModel", new { id = pregnancyCheckupModel.Id }, pregnancyCheckupModel);
         }
 
-        // DELETE: api/PregnancyCheckup/5
+        // DELETE: api/PregnancyCheckupModels/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePregnancyCheckupModel(int id)
         {

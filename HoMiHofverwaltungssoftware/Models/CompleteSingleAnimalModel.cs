@@ -1,5 +1,7 @@
 ﻿namespace HoMiHofverwaltungssoftware.Models
 {
+    //Model for a complete single animal with all data connected to it
+
     public class CompleteSingleAnimalModel
     {
         public int Id { get; set; }
@@ -14,7 +16,7 @@
         public string Vatertier { get; set; }
         public string Muttertier { get; set; }
         public List<string> AllgNotizen { get; set; }
-        public List<string> TUNotizen { get; set; }
+        public List<PregnancyCheckupModel> TUNotizen { get; set; }
         public List<string> Weidegruppen { get; set; }
 
         public CompleteSingleAnimalModel()
@@ -29,7 +31,7 @@
             Vatertier = "Unbekannt";
             Muttertier = "Unbekannt";
             AllgNotizen = new List<string>();
-            TUNotizen = new List<string>();
+            TUNotizen = new List<PregnancyCheckupModel>();
             Weidegruppen = new List<string>();
         }
     }

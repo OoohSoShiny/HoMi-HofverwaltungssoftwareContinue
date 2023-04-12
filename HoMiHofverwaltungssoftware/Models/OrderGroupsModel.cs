@@ -6,11 +6,11 @@ namespace HoMiHofverwaltungssoftware.Models
     public class OrderGroupsModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Bezeichnung { get; set; }
 
         public OrderGroupsModel() 
         {
-            Name = string.Empty;
+            Bezeichnung = string.Empty;
         }
     }
 

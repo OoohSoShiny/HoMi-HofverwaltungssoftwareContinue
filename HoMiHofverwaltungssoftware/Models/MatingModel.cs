@@ -8,6 +8,6 @@ namespace HoMiHofverwaltungssoftware.Models
         public int Id { get; set; }
         public int Muttertier { get; set; }
         public int Vatertier { get; set; }
-        public int Kalb { get; set; }
+        public int Kindtier { get; set; }
     }
 }
