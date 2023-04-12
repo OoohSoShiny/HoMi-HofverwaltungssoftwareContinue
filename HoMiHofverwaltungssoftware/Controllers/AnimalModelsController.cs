@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HoMiHofverwaltungssoftware.Data;
 using HoMiHofverwaltungssoftware.Models;
+using HoMiHofverwaltungssoftware.Responses;
+using HoMiHofverwaltungssoftware.Settings;
 
 namespace HoMiHofverwaltungssoftware.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/GetAnimals")]
     [ApiController]
     public class AnimalModelsController : ControllerBase
     {
@@ -23,102 +25,35 @@ namespace HoMiHofverwaltungssoftware.Controllers
 
         // GET: api/AnimalModels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AnimalModel>>> GetAnimalModel()
-        {
-          if (_context.AnimalModel == null)
-          {
-              return NotFound();
-          }
-            return await _context.AnimalModel.ToListAsync();
-        }
-
-        // GET: api/AnimalModels/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AnimalModel>> GetAnimalModel(int id)
-        {
-          if (_context.AnimalModel == null)
-          {
-              return NotFound();
-          }
-            var animalModel = await _context.AnimalModel.FindAsync(id);
-
-            if (animalModel == null)
-            {
-                return NotFound();
-            }
-
-            return animalModel;
-        }
-
-        // PUT: api/AnimalModels/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAnimalModel(int id, AnimalModel animalModel)
-        {
-            if (id != animalModel.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(animalModel).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AnimalModelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/AnimalModels
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<AnimalModel>> PostAnimalModel(AnimalModel animalModel)
-        {
-          if (_context.AnimalModel == null)
-          {
-              return Problem("Entity set 'HoMiHofverwaltungssoftwareContext.AnimalModel'  is null.");
-          }
-            _context.AnimalModel.Add(animalModel);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetAnimalModel", new { id = animalModel.Id }, animalModel);
-        }
-
-        // DELETE: api/AnimalModels/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAnimalModel(int id)
+        public async Task<ActionResult<AnimalResponse>> GetAnimalModel()
         {
             if (_context.AnimalModel == null)
             {
                 return NotFound();
             }
-            var animalModel = await _context.AnimalModel.FindAsync(id);
-            if (animalModel == null)
+            AnimalResponse response = new AnimalResponse();
+            response.Animals = await _context.AnimalModel.ToListAsync();
+            return response;
+        }
+
+        // GET: api/AnimalModels/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CompleteSingleAnimalResponse>> GetAnimalModel(int id)
+        {
+            if (_context.AnimalModel == null)
             {
                 return NotFound();
             }
+            CompleteSingleAnimalModel _completeSingleAnimalModel = new CompleteSingleAnimalModel();
 
-            _context.AnimalModel.Remove(animalModel);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool AnimalModelExists(int id)
-        {
-            return (_context.AnimalModel?.Any(e => e.Id == id)).GetValueOrDefault();
+            List<AnimalNotesModel>? _animalNotes = await _context.AnimalNotesModel
+                .FromSqlRaw("SELECT Notiz FROM Tiernotizen WHERE Id = " + id.ToString())
+                .ToListAsync();
+            
+            if(_animalNotes != null)
+            {
+                _completeSingleAnimalModel.AllgNotizen = _animalNotes.Select(x => x.Tiernotiz).ToList();
+            }
         }
     }
 }
