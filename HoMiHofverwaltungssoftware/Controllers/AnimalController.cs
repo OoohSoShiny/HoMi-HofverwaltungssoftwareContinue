@@ -9,6 +9,7 @@ using HoMiHofverwaltungssoftware.Data;
 using HoMiHofverwaltungssoftware.Models;
 using HoMiHofverwaltungssoftware.Responses;
 using HoMiHofverwaltungssoftware.Settings;
+using Newtonsoft.Json;
 
 namespace HoMiHofverwaltungssoftware.Controllers
 {
@@ -24,7 +25,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
         }
 
         // GET: api/AnimalModels
-        [HttpGet]
+        [HttpGet]        
         public async Task<ActionResult<AnimalResponse>> GetAnimalModel()
         {
             if (_context.AnimalModel == null)
@@ -38,7 +39,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
 
         // GET: api/AnimalModels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CompleteSingleAnimalResponse>> GetAnimalModel(int id)
+        public async Task<ActionResult<CompleteSingleAnimalModel>> GetAnimalModel(int id)
         {
             if (_context.AnimalModel == null || _context.AnimalNotesModel == null)
             {
@@ -46,24 +47,31 @@ namespace HoMiHofverwaltungssoftware.Controllers
             }
             CompleteSingleAnimalModel _completeSingleAnimalModel = new CompleteSingleAnimalModel();
 
-            List<AnimalNotesModel> _animalNotes = new List<AnimalNotesModel>();
-            _animalNotes = await _context.AnimalNotesModel
-                .FromSqlRaw("SELECT * FROM Tiernotizen WHERE Id = " + id.ToString())
+            var _notes = await _context.AnimalNotesModel
+                .FromSqlRaw("SELECT * FROM Tiernotizen WHERE Tiere_Id = " + id.ToString())
+                .Select(_currentQuery => new
+                {
+                    _currentQuery.Notiz
+                })
                 .ToListAsync();
 
-        /*
-            _completeSingleAnimalModel.AllgNotizen = _animalNotes.Select(x => x.Tiernotiz).ToList();
-
+            if (_notes != null)
+            {
+                foreach(var _note in _notes)
+                {
+                    _completeSingleAnimalModel.AllgNotizen.Add(_note.Notiz);
+                }
+            }
             var _animal = _context.AnimalModel
                 .FromSqlRaw("SELECT Ohrmarkennummer, Geboren, Geschlecht, Name, Archiviert, Masttier FROM Tiere WHERE Id = " + id.ToString())
-                .Select(_queryAnimal => new
+                .Select(_currentQuery => new
                 {
-                    _queryAnimal.Ohrmarkennummer,
-                    _queryAnimal.Geboren,
-                    _queryAnimal.Geschlecht,
-                    _queryAnimal.Name,
-                    _queryAnimal.Archiviert,
-                    _queryAnimal.Masttier
+                    _currentQuery.Ohrmarkennummer,
+                    _currentQuery.Geboren,
+                    _currentQuery.Geschlecht,
+                    _currentQuery.Name,
+                    _currentQuery.Archiviert,
+                    _currentQuery.Masttier
                 })
                 .FirstOrDefault();
             if(_animal == null)
@@ -76,8 +84,8 @@ namespace HoMiHofverwaltungssoftware.Controllers
             _completeSingleAnimalModel.Name = _animal.Name;
             _completeSingleAnimalModel.Archiviert = _animal.Archiviert;
             _completeSingleAnimalModel.Masttier = _animal.Masttier;
-        */
-            return null;
+                   
+            return _completeSingleAnimalModel;
         }
     }
 }

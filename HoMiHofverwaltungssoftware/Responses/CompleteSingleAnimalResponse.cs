@@ -4,6 +4,11 @@ namespace HoMiHofverwaltungssoftware.Responses
 {
     public class CompleteSingleAnimalResponse
     {
-        public List<CompleteSingleAnimalModel>? CompleteSingleAnimal;
+        public List<CompleteSingleAnimalModel> CompleteSingleAnimal;
+        
+        public CompleteSingleAnimalResponse()
+        {
+            CompleteSingleAnimal = new List<CompleteSingleAnimalModel>();
+        }
     }
 }
