@@ -12,55 +12,55 @@ namespace HoMiHofverwaltungssoftware.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StableModelsController : ControllerBase
+    public class MatingController : ControllerBase
     {
         private readonly HoMiHofverwaltungssoftwareContext _context;
 
-        public StableModelsController(HoMiHofverwaltungssoftwareContext context)
+        public MatingController(HoMiHofverwaltungssoftwareContext context)
         {
             _context = context;
         }
 
-        // GET: api/StableModels
+        // GET: api/Mating
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StableModel>>> GetStableModel()
+        public async Task<ActionResult<IEnumerable<MatingModel>>> GetMatingModel()
         {
-          if (_context.StableModel == null)
+          if (_context.MatingModel == null)
           {
               return NotFound();
           }
-            return await _context.StableModel.ToListAsync();
+            return await _context.MatingModel.ToListAsync();
         }
 
-        // GET: api/StableModels/5
+        // GET: api/Mating/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<StableModel>> GetStableModel(int id)
+        public async Task<ActionResult<MatingModel>> GetMatingModel(int id)
         {
-          if (_context.StableModel == null)
+          if (_context.MatingModel == null)
           {
               return NotFound();
           }
-            var stableModel = await _context.StableModel.FindAsync(id);
+            var matingModel = await _context.MatingModel.FindAsync(id);
 
-            if (stableModel == null)
+            if (matingModel == null)
             {
                 return NotFound();
             }
 
-            return stableModel;
+            return matingModel;
         }
 
-        // PUT: api/StableModels/5
+        // PUT: api/Mating/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStableModel(int id, StableModel stableModel)
+        public async Task<IActionResult> PutMatingModel(int id, MatingModel matingModel)
         {
-            if (id != stableModel.Id)
+            if (id != matingModel.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(stableModel).State = EntityState.Modified;
+            _context.Entry(matingModel).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StableModelExists(id))
+                if (!MatingModelExists(id))
                 {
                     return NotFound();
                 }
@@ -81,44 +81,44 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/StableModels
+        // POST: api/Mating
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<StableModel>> PostStableModel(StableModel stableModel)
+        public async Task<ActionResult<MatingModel>> PostMatingModel(MatingModel matingModel)
         {
-          if (_context.StableModel == null)
+          if (_context.MatingModel == null)
           {
-              return Problem("Entity set 'HoMiHofverwaltungssoftwareContext.StableModel'  is null.");
+              return Problem("Entity set 'HoMiHofverwaltungssoftwareContext.MatingModel'  is null.");
           }
-            _context.StableModel.Add(stableModel);
+            _context.MatingModel.Add(matingModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStableModel", new { id = stableModel.Id }, stableModel);
+            return CreatedAtAction("GetMatingModel", new { id = matingModel.Id }, matingModel);
         }
 
-        // DELETE: api/StableModels/5
+        // DELETE: api/Mating/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStableModel(int id)
+        public async Task<IActionResult> DeleteMatingModel(int id)
         {
-            if (_context.StableModel == null)
+            if (_context.MatingModel == null)
             {
                 return NotFound();
             }
-            var stableModel = await _context.StableModel.FindAsync(id);
-            if (stableModel == null)
+            var matingModel = await _context.MatingModel.FindAsync(id);
+            if (matingModel == null)
             {
                 return NotFound();
             }
 
-            _context.StableModel.Remove(stableModel);
+            _context.MatingModel.Remove(matingModel);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool StableModelExists(int id)
+        private bool MatingModelExists(int id)
         {
-            return (_context.StableModel?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.MatingModel?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

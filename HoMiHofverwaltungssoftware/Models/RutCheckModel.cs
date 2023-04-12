@@ -6,7 +6,7 @@ namespace HoMiHofverwaltungssoftware.Models
     public class RutCheckModel
     {
         public int Id { get; set; }
-        public int Tier_Id { get; set; }
+        public int Tiere_Id { get; set; }
         public DateTime Termin { get; set; }
 
         public RutCheckModel() 

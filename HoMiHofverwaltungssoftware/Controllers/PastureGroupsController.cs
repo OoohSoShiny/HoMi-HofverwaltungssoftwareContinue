@@ -12,16 +12,16 @@ namespace HoMiHofverwaltungssoftware.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PastureGroupsModelsController : ControllerBase
+    public class PastureGroupsController : ControllerBase
     {
         private readonly HoMiHofverwaltungssoftwareContext _context;
 
-        public PastureGroupsModelsController(HoMiHofverwaltungssoftwareContext context)
+        public PastureGroupsController(HoMiHofverwaltungssoftwareContext context)
         {
             _context = context;
         }
 
-        // GET: api/PastureGroupsModels
+        // GET: api/PastureGroups
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PastureGroupsModel>>> GetPastureGroupsModel()
         {
@@ -32,7 +32,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return await _context.PastureGroupsModel.ToListAsync();
         }
 
-        // GET: api/PastureGroupsModels/5
+        // GET: api/PastureGroups/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PastureGroupsModel>> GetPastureGroupsModel(int id)
         {
@@ -50,7 +50,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return pastureGroupsModel;
         }
 
-        // PUT: api/PastureGroupsModels/5
+        // PUT: api/PastureGroups/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPastureGroupsModel(int id, PastureGroupsModel pastureGroupsModel)
@@ -81,7 +81,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/PastureGroupsModels
+        // POST: api/PastureGroups
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<PastureGroupsModel>> PostPastureGroupsModel(PastureGroupsModel pastureGroupsModel)
@@ -96,7 +96,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return CreatedAtAction("GetPastureGroupsModel", new { id = pastureGroupsModel.Id }, pastureGroupsModel);
         }
 
-        // DELETE: api/PastureGroupsModels/5
+        // DELETE: api/PastureGroups/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePastureGroupsModel(int id)
         {

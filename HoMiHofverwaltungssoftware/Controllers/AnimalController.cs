@@ -40,20 +40,44 @@ namespace HoMiHofverwaltungssoftware.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CompleteSingleAnimalResponse>> GetAnimalModel(int id)
         {
-            if (_context.AnimalModel == null)
+            if (_context.AnimalModel == null || _context.AnimalNotesModel == null)
             {
                 return NotFound();
             }
             CompleteSingleAnimalModel _completeSingleAnimalModel = new CompleteSingleAnimalModel();
 
-            List<AnimalNotesModel>? _animalNotes = await _context.AnimalNotesModel
-                .FromSqlRaw("SELECT Notiz FROM Tiernotizen WHERE Id = " + id.ToString())
+            List<AnimalNotesModel> _animalNotes = new List<AnimalNotesModel>();
+            _animalNotes = await _context.AnimalNotesModel
+                .FromSqlRaw("SELECT * FROM Tiernotizen WHERE Id = " + id.ToString())
                 .ToListAsync();
-            
-            if(_animalNotes != null)
+
+        /*
+            _completeSingleAnimalModel.AllgNotizen = _animalNotes.Select(x => x.Tiernotiz).ToList();
+
+            var _animal = _context.AnimalModel
+                .FromSqlRaw("SELECT Ohrmarkennummer, Geboren, Geschlecht, Name, Archiviert, Masttier FROM Tiere WHERE Id = " + id.ToString())
+                .Select(_queryAnimal => new
+                {
+                    _queryAnimal.Ohrmarkennummer,
+                    _queryAnimal.Geboren,
+                    _queryAnimal.Geschlecht,
+                    _queryAnimal.Name,
+                    _queryAnimal.Archiviert,
+                    _queryAnimal.Masttier
+                })
+                .FirstOrDefault();
+            if(_animal == null)
             {
-                _completeSingleAnimalModel.AllgNotizen = _animalNotes.Select(x => x.Tiernotiz).ToList();
+                return NotFound();
             }
+            _completeSingleAnimalModel.Ohrmarkennummer = _animal.Ohrmarkennummer;
+            _completeSingleAnimalModel.Geboren = _animal.Geboren;
+            _completeSingleAnimalModel.Geschlecht = _animal.Geschlecht;
+            _completeSingleAnimalModel.Name = _animal.Name;
+            _completeSingleAnimalModel.Archiviert = _animal.Archiviert;
+            _completeSingleAnimalModel.Masttier = _animal.Masttier;
+        */
+            return null;
         }
     }
 }

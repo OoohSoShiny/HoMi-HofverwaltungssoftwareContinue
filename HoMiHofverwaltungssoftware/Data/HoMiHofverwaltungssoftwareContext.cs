@@ -32,7 +32,7 @@ namespace HoMiHofverwaltungssoftware.Data
 
         public DbSet<HoMiHofverwaltungssoftware.Models.RutCheckModel>? RutCheckModel { get; set; }
 
-        public DbSet<HoMiHofverwaltungssoftware.Models.StableModel>? StableModel { get; set; }
+        public DbSet<HoMiHofverwaltungssoftware.Models.StableNumberModel>? StableModel { get; set; }
 
         public DbSet<HoMiHofverwaltungssoftware.Models.OrderGroupsModel>? OrderGroupsModel { get; set; }
     }

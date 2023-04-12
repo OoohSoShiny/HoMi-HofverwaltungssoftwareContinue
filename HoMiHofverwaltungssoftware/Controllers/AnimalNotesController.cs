@@ -12,16 +12,16 @@ namespace HoMiHofverwaltungssoftware.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AnimalNotesModelsController : ControllerBase
+    public class AnimalNotesController : ControllerBase
     {
         private readonly HoMiHofverwaltungssoftwareContext _context;
 
-        public AnimalNotesModelsController(HoMiHofverwaltungssoftwareContext context)
+        public AnimalNotesController(HoMiHofverwaltungssoftwareContext context)
         {
             _context = context;
         }
 
-        // GET: api/AnimalNotesModels
+        // GET: api/AnimalNotes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AnimalNotesModel>>> GetAnimalNotesModel()
         {
@@ -32,7 +32,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return await _context.AnimalNotesModel.ToListAsync();
         }
 
-        // GET: api/AnimalNotesModels/5
+        // GET: api/AnimalNotes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AnimalNotesModel>> GetAnimalNotesModel(int id)
         {
@@ -50,7 +50,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return animalNotesModel;
         }
 
-        // PUT: api/AnimalNotesModels/5
+        // PUT: api/AnimalNotes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAnimalNotesModel(int id, AnimalNotesModel animalNotesModel)
@@ -81,7 +81,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/AnimalNotesModels
+        // POST: api/AnimalNotes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<AnimalNotesModel>> PostAnimalNotesModel(AnimalNotesModel animalNotesModel)
@@ -96,7 +96,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return CreatedAtAction("GetAnimalNotesModel", new { id = animalNotesModel.Id }, animalNotesModel);
         }
 
-        // DELETE: api/AnimalNotesModels/5
+        // DELETE: api/AnimalNotes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAnimalNotesModel(int id)
         {

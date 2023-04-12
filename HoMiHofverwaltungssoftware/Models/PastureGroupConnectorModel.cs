@@ -6,13 +6,7 @@ namespace HoMiHofverwaltungssoftware.Models
     public class PastureGroupConnectorModel
     {      
         public int Id { get; set; }
-        public string PastureGroupName { get; set; }
-        public string BrandNumber { get; set; }
-
-        public PastureGroupConnectorModel() 
-        { 
-            PastureGroupName = string.Empty;
-            BrandNumber = string.Empty;
-        }
+        public int Tiere_Id { get; set; }
+        public int Weidegruppen_Id { get; set; }
     }
 }

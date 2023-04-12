@@ -12,16 +12,16 @@ namespace HoMiHofverwaltungssoftware.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderGroupsModelsController : ControllerBase
+    public class OrderGroupsController : ControllerBase
     {
         private readonly HoMiHofverwaltungssoftwareContext _context;
 
-        public OrderGroupsModelsController(HoMiHofverwaltungssoftwareContext context)
+        public OrderGroupsController(HoMiHofverwaltungssoftwareContext context)
         {
             _context = context;
         }
 
-        // GET: api/OrderGroupsModels
+        // GET: api/OrderGroups
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderGroupsModel>>> GetOrderGroupsModel()
         {
@@ -32,7 +32,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return await _context.OrderGroupsModel.ToListAsync();
         }
 
-        // GET: api/OrderGroupsModels/5
+        // GET: api/OrderGroups/5
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderGroupsModel>> GetOrderGroupsModel(int id)
         {
@@ -50,7 +50,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return orderGroupsModel;
         }
 
-        // PUT: api/OrderGroupsModels/5
+        // PUT: api/OrderGroups/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrderGroupsModel(int id, OrderGroupsModel orderGroupsModel)
@@ -81,7 +81,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/OrderGroupsModels
+        // POST: api/OrderGroups
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<OrderGroupsModel>> PostOrderGroupsModel(OrderGroupsModel orderGroupsModel)
@@ -96,7 +96,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return CreatedAtAction("GetOrderGroupsModel", new { id = orderGroupsModel.Id }, orderGroupsModel);
         }
 
-        // DELETE: api/OrderGroupsModels/5
+        // DELETE: api/OrderGroups/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrderGroupsModel(int id)
         {

@@ -12,55 +12,55 @@ namespace HoMiHofverwaltungssoftware.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MatingModelsController : ControllerBase
+    public class PastureController : ControllerBase
     {
         private readonly HoMiHofverwaltungssoftwareContext _context;
 
-        public MatingModelsController(HoMiHofverwaltungssoftwareContext context)
+        public PastureController(HoMiHofverwaltungssoftwareContext context)
         {
             _context = context;
         }
 
-        // GET: api/MatingModels
+        // GET: api/Pasture
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MatingModel>>> GetMatingModel()
+        public async Task<ActionResult<IEnumerable<PastureModel>>> GetPastureModel()
         {
-          if (_context.MatingModel == null)
+          if (_context.PastureModel == null)
           {
               return NotFound();
           }
-            return await _context.MatingModel.ToListAsync();
+            return await _context.PastureModel.ToListAsync();
         }
 
-        // GET: api/MatingModels/5
+        // GET: api/Pasture/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MatingModel>> GetMatingModel(int id)
+        public async Task<ActionResult<PastureModel>> GetPastureModel(int id)
         {
-          if (_context.MatingModel == null)
+          if (_context.PastureModel == null)
           {
               return NotFound();
           }
-            var matingModel = await _context.MatingModel.FindAsync(id);
+            var pastureModel = await _context.PastureModel.FindAsync(id);
 
-            if (matingModel == null)
+            if (pastureModel == null)
             {
                 return NotFound();
             }
 
-            return matingModel;
+            return pastureModel;
         }
 
-        // PUT: api/MatingModels/5
+        // PUT: api/Pasture/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMatingModel(int id, MatingModel matingModel)
+        public async Task<IActionResult> PutPastureModel(int id, PastureModel pastureModel)
         {
-            if (id != matingModel.Id)
+            if (id != pastureModel.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(matingModel).State = EntityState.Modified;
+            _context.Entry(pastureModel).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MatingModelExists(id))
+                if (!PastureModelExists(id))
                 {
                     return NotFound();
                 }
@@ -81,44 +81,44 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/MatingModels
+        // POST: api/Pasture
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<MatingModel>> PostMatingModel(MatingModel matingModel)
+        public async Task<ActionResult<PastureModel>> PostPastureModel(PastureModel pastureModel)
         {
-          if (_context.MatingModel == null)
+          if (_context.PastureModel == null)
           {
-              return Problem("Entity set 'HoMiHofverwaltungssoftwareContext.MatingModel'  is null.");
+              return Problem("Entity set 'HoMiHofverwaltungssoftwareContext.PastureModel'  is null.");
           }
-            _context.MatingModel.Add(matingModel);
+            _context.PastureModel.Add(pastureModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMatingModel", new { id = matingModel.Id }, matingModel);
+            return CreatedAtAction("GetPastureModel", new { id = pastureModel.Id }, pastureModel);
         }
 
-        // DELETE: api/MatingModels/5
+        // DELETE: api/Pasture/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMatingModel(int id)
+        public async Task<IActionResult> DeletePastureModel(int id)
         {
-            if (_context.MatingModel == null)
+            if (_context.PastureModel == null)
             {
                 return NotFound();
             }
-            var matingModel = await _context.MatingModel.FindAsync(id);
-            if (matingModel == null)
+            var pastureModel = await _context.PastureModel.FindAsync(id);
+            if (pastureModel == null)
             {
                 return NotFound();
             }
 
-            _context.MatingModel.Remove(matingModel);
+            _context.PastureModel.Remove(pastureModel);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool MatingModelExists(int id)
+        private bool PastureModelExists(int id)
         {
-            return (_context.MatingModel?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.PastureModel?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

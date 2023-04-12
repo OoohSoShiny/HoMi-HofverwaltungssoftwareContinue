@@ -7,15 +7,15 @@ namespace HoMiHofverwaltungssoftware.Models
     public class PastureTimesModel
     {
         public int Id { get; set; }
-        public int PastureId { get; set; }
-        public int GroupId { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set;}
+        public int Weidegruppen_Id { get; set; }
+        public int Weiden_Id { get; set; }
+        public DateTime Startzeitpunkt { get; set; }
+        public DateTime Endzeitpunkt { get; set;}
 
         public PastureTimesModel() 
         {
-            StartDate = DateTime.MinValue;
-            EndDate = DateTime.MinValue;
+            Startzeitpunkt = DateTime.MinValue;
+            Endzeitpunkt = DateTime.MinValue;
         }
     }
 }

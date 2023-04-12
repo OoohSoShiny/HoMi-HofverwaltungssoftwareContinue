@@ -6,11 +6,12 @@ namespace HoMiHofverwaltungssoftware.Models
     public class AnimalNotesModel
     {
         public int Id { get; set; }
-        public string Tiernotiz { get; set; }
+        public int Tiere_Id { get; set; }
+        public string Notiz { get; set; }
         
         public AnimalNotesModel() 
         {
-            Tiernotiz = string.Empty;
+            Notiz = string.Empty;
         }
     }
 }
