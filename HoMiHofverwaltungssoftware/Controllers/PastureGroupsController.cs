@@ -10,7 +10,7 @@ using HoMiHofverwaltungssoftware.Models;
 
 namespace HoMiHofverwaltungssoftware.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/PastureGroups")]
     [ApiController]
     public class PastureGroupsController : ControllerBase
     {
@@ -51,7 +51,6 @@ namespace HoMiHofverwaltungssoftware.Controllers
         }
 
         // PUT: api/PastureGroups/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPastureGroupsModel(int id, PastureGroupsModel pastureGroupsModel)
         {

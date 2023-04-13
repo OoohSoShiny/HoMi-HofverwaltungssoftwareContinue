@@ -10,18 +10,18 @@ using HoMiHofverwaltungssoftware.Models;
 
 namespace HoMiHofverwaltungssoftware.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/PasturGroupConnectors")]
     [ApiController]
-    public class PastureGroupConnectorModelsController : ControllerBase
+    public class PastureGroupConnectorController : ControllerBase
     {
         private readonly HoMiHofverwaltungssoftwareContext _context;
 
-        public PastureGroupConnectorModelsController(HoMiHofverwaltungssoftwareContext context)
+        public PastureGroupConnectorController(HoMiHofverwaltungssoftwareContext context)
         {
             _context = context;
         }
 
-        // GET: api/PastureGroupConnectorModels
+        // GET: api/PasturGroupConnectors
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PastureGroupConnectorModel>>> GetPastureGroupConnectorModel()
         {
@@ -32,7 +32,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return await _context.PastureGroupConnectorModel.ToListAsync();
         }
 
-        // GET: api/PastureGroupConnectorModels/5
+        // GET: api/PasturGroupConnectors/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PastureGroupConnectorModel>> GetPastureGroupConnectorModel(int id)
         {
@@ -50,8 +50,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return pastureGroupConnectorModel;
         }
 
-        // PUT: api/PastureGroupConnectorModels/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/PasturGroupConnectors/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPastureGroupConnectorModel(int id, PastureGroupConnectorModel pastureGroupConnectorModel)
         {
@@ -82,7 +81,6 @@ namespace HoMiHofverwaltungssoftware.Controllers
         }
 
         // POST: api/PastureGroupConnectorModels
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<PastureGroupConnectorModel>> PostPastureGroupConnectorModel(PastureGroupConnectorModel pastureGroupConnectorModel)
         {

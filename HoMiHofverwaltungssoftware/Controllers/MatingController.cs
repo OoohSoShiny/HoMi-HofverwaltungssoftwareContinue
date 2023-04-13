@@ -10,7 +10,7 @@ using HoMiHofverwaltungssoftware.Models;
 
 namespace HoMiHofverwaltungssoftware.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Matings")]
     [ApiController]
     public class MatingController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             _context = context;
         }
 
-        // GET: api/Mating
+        // GET: api/Matings
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MatingModel>>> GetMatingModel()
         {
@@ -32,7 +32,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return await _context.MatingModel.ToListAsync();
         }
 
-        // GET: api/Mating/5
+        // GET: api/Matings/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MatingModel>> GetMatingModel(int id)
         {
@@ -50,7 +50,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return matingModel;
         }
 
-        // PUT: api/Mating/5
+        // PUT: api/Matings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMatingModel(int id, MatingModel matingModel)
@@ -81,8 +81,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/Mating
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/Matings
         [HttpPost]
         public async Task<ActionResult<MatingModel>> PostMatingModel(MatingModel matingModel)
         {
@@ -96,7 +95,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return CreatedAtAction("GetMatingModel", new { id = matingModel.Id }, matingModel);
         }
 
-        // DELETE: api/Mating/5
+        // DELETE: api/Matings/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMatingModel(int id)
         {

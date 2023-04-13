@@ -10,7 +10,7 @@ using HoMiHofverwaltungssoftware.Models;
 
 namespace HoMiHofverwaltungssoftware.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Pastures")]
     [ApiController]
     public class PastureController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             _context = context;
         }
 
-        // GET: api/Pasture
+        // GET: api/Pastures
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PastureModel>>> GetPastureModel()
         {
@@ -32,7 +32,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return await _context.PastureModel.ToListAsync();
         }
 
-        // GET: api/Pasture/5
+        // GET: api/Pastures/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PastureModel>> GetPastureModel(int id)
         {
@@ -50,7 +50,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return pastureModel;
         }
 
-        // PUT: api/Pasture/5
+        // PUT: api/Pastures/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPastureModel(int id, PastureModel pastureModel)
@@ -81,8 +81,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/Pasture
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/Pastures
         [HttpPost]
         public async Task<ActionResult<PastureModel>> PostPastureModel(PastureModel pastureModel)
         {
@@ -96,7 +95,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return CreatedAtAction("GetPastureModel", new { id = pastureModel.Id }, pastureModel);
         }
 
-        // DELETE: api/Pasture/5
+        // DELETE: api/Pastures/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePastureModel(int id)
         {

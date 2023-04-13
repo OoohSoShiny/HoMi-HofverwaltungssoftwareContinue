@@ -10,7 +10,7 @@ using HoMiHofverwaltungssoftware.Models;
 
 namespace HoMiHofverwaltungssoftware.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/AnimalNotes")]
     [ApiController]
     public class AnimalNotesController : ControllerBase
     {
@@ -82,7 +82,6 @@ namespace HoMiHofverwaltungssoftware.Controllers
         }
 
         // POST: api/AnimalNotes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<AnimalNotesModel>> PostAnimalNotesModel(AnimalNotesModel animalNotesModel)
         {

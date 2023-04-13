@@ -10,18 +10,18 @@ using HoMiHofverwaltungssoftware.Models;
 
 namespace HoMiHofverwaltungssoftware.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/RutChecks")]
     [ApiController]
-    public class RutCheckModelsController : ControllerBase
+    public class RutCheckController : ControllerBase
     {
         private readonly HoMiHofverwaltungssoftwareContext _context;
 
-        public RutCheckModelsController(HoMiHofverwaltungssoftwareContext context)
+        public RutCheckController(HoMiHofverwaltungssoftwareContext context)
         {
             _context = context;
         }
 
-        // GET: api/RutCheckModels
+        // GET: api/RutChecks
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RutCheckModel>>> GetRutCheckModel()
         {
@@ -32,7 +32,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return await _context.RutCheckModel.ToListAsync();
         }
 
-        // GET: api/RutCheckModels/5
+        // GET: api/RutChecks/5
         [HttpGet("{id}")]
         public async Task<ActionResult<RutCheckModel>> GetRutCheckModel(int id)
         {
@@ -50,8 +50,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return rutCheckModel;
         }
 
-        // PUT: api/RutCheckModels/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/RutChecks/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRutCheckModel(int id, RutCheckModel rutCheckModel)
         {
@@ -81,7 +80,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/RutCheckModels
+        // POST: api/RutChecks
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<RutCheckModel>> PostRutCheckModel(RutCheckModel rutCheckModel)
@@ -96,7 +95,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return CreatedAtAction("GetRutCheckModel", new { id = rutCheckModel.Id }, rutCheckModel);
         }
 
-        // DELETE: api/RutCheckModels/5
+        // DELETE: api/RutChecks/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRutCheckModel(int id)
         {

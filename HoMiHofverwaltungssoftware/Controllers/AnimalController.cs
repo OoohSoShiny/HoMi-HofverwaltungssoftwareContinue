@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace HoMiHofverwaltungssoftware.Controllers
 {
-    [Route("api/GetAnimals")]
+    [Route("api/Animals")]
     [ApiController]
     public class AnimalModelsController : ControllerBase
     {
@@ -24,7 +24,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             _context = context;
         }
 
-        // GET: api/AnimalModels
+        // GET: api/Animals
         [HttpGet]        
         public async Task<ActionResult<AnimalResponse>> GetAnimalModel()
         {
@@ -37,7 +37,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return response;
         }
 
-        // GET: api/AnimalModels/5
+        // GET: api/Animals/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CompleteSingleAnimalModel>> GetAnimalModel(int id)
         {

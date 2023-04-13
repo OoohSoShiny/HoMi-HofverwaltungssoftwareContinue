@@ -10,18 +10,18 @@ using HoMiHofverwaltungssoftware.Models;
 
 namespace HoMiHofverwaltungssoftware.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/StableNumbers")]
     [ApiController]
-    public class StableNumberModelsController : ControllerBase
+    public class StableNumberController : ControllerBase
     {
         private readonly HoMiHofverwaltungssoftwareContext _context;
 
-        public StableNumberModelsController(HoMiHofverwaltungssoftwareContext context)
+        public StableNumberController(HoMiHofverwaltungssoftwareContext context)
         {
             _context = context;
         }
 
-        // GET: api/StableNumberModels
+        // GET: api/StableNumbers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StableNumberModel>>> GetStableModel()
         {
@@ -32,7 +32,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return await _context.StableModel.ToListAsync();
         }
 
-        // GET: api/StableNumberModels/5
+        // GET: api/StableNumbers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<StableNumberModel>> GetStableNumberModel(int id)
         {
@@ -50,8 +50,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return stableNumberModel;
         }
 
-        // PUT: api/StableNumberModels/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/StableNumbers/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStableNumberModel(int id, StableNumberModel stableNumberModel)
         {
@@ -81,7 +80,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/StableNumberModels
+        // POST: api/StableNumbers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<StableNumberModel>> PostStableNumberModel(StableNumberModel stableNumberModel)
@@ -96,7 +95,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return CreatedAtAction("GetStableNumberModel", new { id = stableNumberModel.Id }, stableNumberModel);
         }
 
-        // DELETE: api/StableNumberModels/5
+        // DELETE: api/StableNumbers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStableNumberModel(int id)
         {

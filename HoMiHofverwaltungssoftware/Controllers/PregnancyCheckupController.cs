@@ -10,7 +10,7 @@ using HoMiHofverwaltungssoftware.Models;
 
 namespace HoMiHofverwaltungssoftware.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/PregnancyCheckups")]
     [ApiController]
     public class PregnancyCheckupController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             _context = context;
         }
 
-        // GET: api/PregnancyCheckupModels
+        // GET: api/PregnancyCheckups
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PregnancyCheckupModel>>> GetPregnancyCheckupModel()
         {
@@ -32,7 +32,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return await _context.PregnancyCheckupModel.ToListAsync();
         }
 
-        // GET: api/PregnancyCheckupModels/5
+        // GET: api/PregnancyCheckups/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PregnancyCheckupModel>> GetPregnancyCheckupModel(int id)
         {
@@ -50,8 +50,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return pregnancyCheckupModel;
         }
 
-        // PUT: api/PregnancyCheckupModels/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/PregnancyCheckups/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPregnancyCheckupModel(int id, PregnancyCheckupModel pregnancyCheckupModel)
         {
@@ -81,8 +80,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return NoContent();
         }
 
-        // POST: api/PregnancyCheckupModels
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/PregnancyCheckups
         [HttpPost]
         public async Task<ActionResult<PregnancyCheckupModel>> PostPregnancyCheckupModel(PregnancyCheckupModel pregnancyCheckupModel)
         {
@@ -96,7 +94,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             return CreatedAtAction("GetPregnancyCheckupModel", new { id = pregnancyCheckupModel.Id }, pregnancyCheckupModel);
         }
 
-        // DELETE: api/PregnancyCheckupModels/5
+        // DELETE: api/PregnancyCheckups/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePregnancyCheckupModel(int id)
         {
