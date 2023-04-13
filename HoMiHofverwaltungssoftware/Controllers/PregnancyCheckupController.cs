@@ -12,11 +12,11 @@ namespace HoMiHofverwaltungssoftware.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PregnancyCheckupModelsController : ControllerBase
+    public class PregnancyCheckupController : ControllerBase
     {
         private readonly HoMiHofverwaltungssoftwareContext _context;
 
-        public PregnancyCheckupModelsController(HoMiHofverwaltungssoftwareContext context)
+        public PregnancyCheckupController(HoMiHofverwaltungssoftwareContext context)
         {
             _context = context;
         }

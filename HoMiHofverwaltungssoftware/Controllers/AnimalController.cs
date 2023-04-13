@@ -59,7 +59,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
 
             //Getting the baseline animal and assign corresponding values to the complete Animal
             var _animal = _context.AnimalModel
-                .FromSqlRaw("SELECT Ordnungsgruppen_Id, Stallnummer_ID, Ohrmarkennummer, Geboren, Geschlecht, Name, Archiviert, Masttier FROM Tiere WHERE Id = " + id.ToString())
+                .FromSqlRaw("SELECT Ordnungsgruppen_Id, Nummer AS Stallnummer_Id, Ohrmarkennummer, Geboren, Geschlecht, Name, Tiere.Archiviert, Masttier FROM Tiere JOIN Stallnummern ON Tiere.Stallnummer_Id = Stallnummern.Id WHERE Tiere.Id = " + id.ToString())
                 .Select(_currentQuery => new
                 {
                     _currentQuery.Ordnungsgruppen_Id,
@@ -69,7 +69,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
                     _currentQuery.Geschlecht,
                     _currentQuery.Name,
                     _currentQuery.Archiviert,
-                    _currentQuery.Masttier                                   
+                    _currentQuery.Masttier,
                 })
                 .FirstOrDefault();
 

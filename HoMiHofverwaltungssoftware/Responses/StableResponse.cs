@@ -4,11 +4,11 @@ namespace HoMiHofverwaltungssoftware.Responses
 {
     public class StableResponse
     {
-        public List<StableNumberModel> Stables { get; set; }
+        public List<StableNumberModel> StableNumbers { get; set; }
 
         public StableResponse() 
         {
-            Stables = new List<StableNumberModel>();
+            StableNumbers = new List<StableNumberModel>();
         }
     }
 }
