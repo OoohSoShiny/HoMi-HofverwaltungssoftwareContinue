@@ -23,23 +23,49 @@ namespace HoMiHofverwaltungssoftware.Controllers
         {
             _context = context;
         }
-
+        
         // GET: api/Animals
         [HttpGet]        
-        public async Task<ActionResult<AnimalResponse>> GetAnimalModel()
-        {
+        public async Task<ActionResult<List<AnimalSimpleModel>>> GetAnimalModel()
+        {   
             if (_context.AnimalModel == null)
             {
                 return NotFound();
             }
-            AnimalResponse response = new AnimalResponse();
-            response.Animals = await _context.AnimalModel.ToListAsync();
-            return response;
+
+            List<AnimalSimpleModel> animalSimpleModelList = new List<AnimalSimpleModel>();
+
+            var _animal = await _context.AnimalModel
+                .FromSqlRaw("SELECT Tiere.Id, Nummer AS Stallnummer, Ohrmarkennummer " +
+                "FROM Tiere " +                
+                "JOIN Stallnummern ON Tiere.Stallnummer_Id = Stallnummern.Id ")
+                .Select(currentquery => new 
+                {
+                    currentquery.Id,
+                    currentquery.Ohrmarkennummer,
+                    currentquery.Stallnummer                    
+                })
+                .ToListAsync();         
+
+            if (_animal != null)
+            {
+                foreach (var item in _animal) 
+                {
+                    AnimalSimpleModel animalSimpleModel = new AnimalSimpleModel();
+                    animalSimpleModel.Ohrmarkennummer = item.Ohrmarkennummer;
+                    animalSimpleModel.Stallnummer = item.Stallnummer;
+                    animalSimpleModel.Id = item.Id;
+
+                    animalSimpleModelList.Add(animalSimpleModel);
+                }
+            }
+            return animalSimpleModelList;
         }
+        //Stablenumber earnumber ordergroup
 
         // GET: api/Animals/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CompleteSingleAnimalModel>> GetAnimalModel(int id)
+        public async Task<ActionResult<AnimalCompleteModel>> GetAnimalModel(int id)
         {
             //Checks if the correct _context exist before trying to access it. 
 
@@ -50,7 +76,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             }
 
             //Base for the object that gets returned in the end
-            CompleteSingleAnimalModel _completeSingleAnimalModel = new CompleteSingleAnimalModel();
+            AnimalCompleteModel completeSingleAnimalModel = new AnimalCompleteModel();
 
             //Decided to send several small queries instead of one large one - standard joins have troubles returning something if the cow doesnt
             //exist somewhere, left joins have the tendency to give back large quantities of data which needs to be filtered. A "Sql-Join-String-Constructor"
@@ -58,83 +84,83 @@ namespace HoMiHofverwaltungssoftware.Controllers
 
 
             //Getting the baseline animal and assign corresponding values to the complete Animal
-            var _animal = _context.AnimalModel
-                .FromSqlRaw("SELECT Ordnungsgruppen_Id, Nummer AS Stallnummer_Id, Ohrmarkennummer, Geboren, Geschlecht, Name, Tiere.Archiviert, Masttier FROM Tiere JOIN Stallnummern ON Tiere.Stallnummer_Id = Stallnummern.Id WHERE Tiere.Id = " + id.ToString())
-                .Select(_currentQuery => new
+            var animal = _context.AnimalModel
+                .FromSqlRaw("SELECT Ordnungsgruppen_Id, Nummer AS Stallnummer, Ohrmarkennummer, Geboren, Geschlecht, Name, Tiere.Archiviert, Masttier FROM Tiere JOIN Stallnummern ON Tiere.Stallnummer_Id = Stallnummern.Id WHERE Tiere.Id = " + id.ToString())
+                .Select(currentQuery => new
                 {
-                    _currentQuery.Ordnungsgruppen_Id,
-                    _currentQuery.Stallnummer_Id,
-                    _currentQuery.Ohrmarkennummer,
-                    _currentQuery.Geboren,
-                    _currentQuery.Geschlecht,
-                    _currentQuery.Name,
-                    _currentQuery.Archiviert,
-                    _currentQuery.Masttier,
+                    currentQuery.Ordnungsgruppen_Id,
+                    currentQuery.Stallnummer,
+                    currentQuery.Ohrmarkennummer,
+                    currentQuery.Geboren,
+                    currentQuery.Geschlecht,
+                    currentQuery.Name,
+                    currentQuery.Archiviert,
+                    currentQuery.Masttier,
                 })
                 .FirstOrDefault();
 
             //If the baseline animal does not exist returns 404
-            if(_animal == null)
+            if(animal == null)
             {
                 return NotFound();
             }
 
-            _completeSingleAnimalModel.Id = id;
-            _completeSingleAnimalModel.Ohrmarkennummer = _animal.Ohrmarkennummer;
-            _completeSingleAnimalModel.Geboren = _animal.Geboren;
-            _completeSingleAnimalModel.Geschlecht = _animal.Geschlecht;
-            _completeSingleAnimalModel.Name = _animal.Name;
-            _completeSingleAnimalModel.Archiviert = _animal.Archiviert;
-            _completeSingleAnimalModel.Masttier = _animal.Masttier;
-            _completeSingleAnimalModel.Stallnummer = _animal.Stallnummer_Id.ToString();
-            _completeSingleAnimalModel.Ordnungsgruppe = _animal.Ordnungsgruppen_Id.ToString();
+            completeSingleAnimalModel.Id = id;
+            completeSingleAnimalModel.Ohrmarkennummer = animal.Ohrmarkennummer;
+            completeSingleAnimalModel.Geboren = animal.Geboren;
+            completeSingleAnimalModel.Geschlecht = animal.Geschlecht;
+            completeSingleAnimalModel.Name = animal.Name;
+            completeSingleAnimalModel.Archiviert = animal.Archiviert;
+            completeSingleAnimalModel.Masttier = animal.Masttier;
+            completeSingleAnimalModel.Stallnummer = animal.Stallnummer;
+            completeSingleAnimalModel.Ohrmarkennummer = animal.Ordnungsgruppen_Id.ToString();
 
 
             //Checking if any notes exist for this animal and adding it to the general notes list
-            var _notes = await _context.AnimalNotesModel
+            var notes = await _context.AnimalNotesModel
                 .FromSqlRaw("SELECT * FROM Tiernotizen WHERE Tiere_Id = " + id.ToString())
-                .Select(_currentQuery => new
+                .Select(currentQuery => new
                 {
-                    _currentQuery.Notiz
+                    currentQuery.Notiz
                 })
                 .ToListAsync();
 
-            if (_notes != null)
+            if (notes != null)
             {
-                foreach (var _note in _notes)
+                foreach (var note in notes)
                 {
-                    _completeSingleAnimalModel.AllgNotizen.Add(_note.Notiz);
+                    completeSingleAnimalModel.AllgNotizen.Add(note.Notiz);
                 }
             }
 
 
             //Adding all pregnancy check notes to the pregnancy check list
-            var _pregnancyCheck = await _context.PregnancyCheckupModel
+            var pregnancyCheck = await _context.PregnancyCheckupModel
                 .FromSqlRaw("SELECT * FROM Traechtigkeitsuntersuchung WHERE Tiere_Id = " + id.ToString())
-                .Select(_currentQuery => new 
+                .Select(currentQuery => new 
                 {                     
-                    _currentQuery.Id,
-                    _currentQuery.Notiz,
-                    _currentQuery.Termin
+                    currentQuery.Id,
+                    currentQuery.Notiz,
+                    currentQuery.Termin
                 })
                 .ToListAsync();
-            if( _pregnancyCheck != null )
+            if( pregnancyCheck != null )
             {
-                foreach(var _check in _pregnancyCheck)
+                foreach(var _check in pregnancyCheck)
                 {
-                    PregnancyCheckupModel _checkConstructor = new PregnancyCheckupModel();
-                    _checkConstructor.Tiere_Id = id;
-                    _checkConstructor.Id = _check.Id;
-                    _checkConstructor.Termin = _check.Termin;
-                    _checkConstructor.Notiz = _check.Notiz;
+                    PregnancyCheckupModel checkConstructor = new PregnancyCheckupModel();
+                    checkConstructor.Tiere_Id = id;
+                    checkConstructor.Id = _check.Id;
+                    checkConstructor.Termin = _check.Termin;
+                    checkConstructor.Notiz = _check.Notiz;
 
-                    _completeSingleAnimalModel.TUNotizen.Add(_checkConstructor);
+                    completeSingleAnimalModel.TUNotizen.Add(checkConstructor);
                 }
             }
 
             //OrderGroup Call 
             var _orderGroup = await _context.OrderGroupsModel
-                .FromSqlRaw("SELECT Bezeichnung FROM Ordnungsgruppen WHERE Id = " + _completeSingleAnimalModel.Ordnungsgruppe)
+                .FromSqlRaw("SELECT Bezeichnung FROM Ordnungsgruppen WHERE Id = " + completeSingleAnimalModel.Ohrmarkennummer)
                 .Select(_currentQuery => new
                 {
                     _currentQuery.Bezeichnung
@@ -143,7 +169,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
 
             if( _orderGroup != null ) 
             {
-                _completeSingleAnimalModel.Ordnungsgruppe = _orderGroup.Bezeichnung;
+                completeSingleAnimalModel.Ohrmarkennummer = _orderGroup.Bezeichnung;
             }
 
             var _parentFinder = await _context.AnimalModel
@@ -154,9 +180,9 @@ namespace HoMiHofverwaltungssoftware.Controllers
                     "SELECT Ohrmarkennummer FROM Tiere " +
                     "LEFT JOIN Deckungen ON Deckungen.Vatertier = Tiere.Id "+ 
                     "WHERE Deckungen.Kindtier = " + id)
-                .Select(_currentQuery => new
+                .Select(currentQuery => new
                 {
-                    _currentQuery.Ohrmarkennummer
+                    currentQuery.Ohrmarkennummer
                 })
                 .ToListAsync();
 
@@ -164,9 +190,9 @@ namespace HoMiHofverwaltungssoftware.Controllers
             {
                 switch (i)
                 {
-                    case 0: _completeSingleAnimalModel.Muttertier = _parentFinder[0].ToString();
+                    case 0: completeSingleAnimalModel.Muttertier = _parentFinder[0].ToString();
                         break;
-                    case 1: _completeSingleAnimalModel.Vatertier = _parentFinder[1].ToString();
+                    case 1: completeSingleAnimalModel.Vatertier = _parentFinder[1].ToString();
                         break;
                 }
             }
@@ -177,21 +203,20 @@ namespace HoMiHofverwaltungssoftware.Controllers
                 "JOIN Weidegruppenzuordnung " +
                 "ON Weidegruppen.Id = Weidegruppenzuordnung.Weidegruppen_Id " +
                 "WHERE Weidegruppenzuordnung.Tiere_Id = " + id)
-                .Select(_currentQuery => new
+                .Select(currentQuery => new
                 {
-                    _currentQuery.Bezeichnung
+                    currentQuery.Bezeichnung
                 })
                 .ToListAsync();
 
-            if (_pastureGroupFinder.Count > 0)
+            if (_pastureGroupFinder != null && _pastureGroupFinder.Count > 0)
             {
-                foreach (var _currentPasture in _pastureGroupFinder)
+                foreach (var currentPasture in _pastureGroupFinder)
                 {
-                    _completeSingleAnimalModel.Weidegruppen.Add(_currentPasture.ToString());
+                    completeSingleAnimalModel.Weidegruppen.Add(currentPasture.ToString());
                 }
             }
-
-            return _completeSingleAnimalModel;
+            return completeSingleAnimalModel;
         }
     }
 }

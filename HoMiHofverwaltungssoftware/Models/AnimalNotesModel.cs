@@ -2,7 +2,7 @@
 
 namespace HoMiHofverwaltungssoftware.Models
 {
-    //Notes for animals which do not have to be directly connected to the Pregnancy checkups
+    //Notes for Animals which do not have to be directly connected to the Pregnancy checkups
 
     [Table("Tiernotizen")]
     public class AnimalNotesModel

@@ -5,12 +5,10 @@ namespace HoMiHofverwaltungssoftware.Models
     //Baseline for Animals
 
     [Table("Tiere")]
-    public class AnimalModel
+    public class AnimalModel : AnimalSimpleModel
     {
-        public int Id { get; set; }
         public int Ordnungsgruppen_Id { get; set; }
         public int Stallnummer_Id { get; set; }
-        public string Ohrmarkennummer { get; set; }
         public DateTime Geboren { get; set; }
         public bool Geschlecht { get; set; }
         public string Name { get; set; }
