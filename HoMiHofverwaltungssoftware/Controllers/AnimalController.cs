@@ -26,14 +26,14 @@ namespace HoMiHofverwaltungssoftware.Controllers
         
         // GET: api/Animals
         [HttpGet]        
-        public async Task<ActionResult<List<AnimalSimpleModel>>> GetAnimalModel()
+        public async Task<ActionResult<AnimalSimpleResponse>> GetSimpleAnimals()
         {   
             if (_context.AnimalModel == null)
             {
                 return NotFound();
             }
 
-            List<AnimalSimpleModel> animalSimpleModelList = new List<AnimalSimpleModel>();
+            AnimalSimpleResponse animalSimpleResponse = new AnimalSimpleResponse();
 
             var _animal = await _context.AnimalModel
                 .FromSqlRaw("SELECT Tiere.Id, Nummer AS Stallnummer, Ohrmarkennummer " +
@@ -56,10 +56,10 @@ namespace HoMiHofverwaltungssoftware.Controllers
                     animalSimpleModel.Stallnummer = item.Stallnummer;
                     animalSimpleModel.Id = item.Id;
 
-                    animalSimpleModelList.Add(animalSimpleModel);
+                    animalSimpleResponse.animalsSimple.Add(animalSimpleModel);
                 }
             }
-            return animalSimpleModelList;
+            return animalSimpleResponse;
         }
         //Stablenumber earnumber ordergroup
 
