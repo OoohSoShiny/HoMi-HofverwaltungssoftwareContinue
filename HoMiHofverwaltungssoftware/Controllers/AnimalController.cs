@@ -65,9 +65,10 @@ namespace HoMiHofverwaltungssoftware.Controllers
 
         // GET: api/Animals/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AnimalCompleteModel>> GetAnimalModel(int id)
+        public async Task<ActionResult<AnimalCompleteResponse>> GetAnimalModel(int id)
         {
-            //Checks if the correct _context exist before trying to access it. 
+            //Checks if the correct _context exist before trying to access it.
+            AnimalCompleteResponse completeResponse = new AnimalCompleteResponse();
 
             if (_context.AnimalModel == null || _context.AnimalNotesModel == null || _context.PregnancyCheckupModel == null || _context.OrderGroupsModel == null || _context.MatingModel == null ||
                 _context.PastureGroupConnectorModel == null || _context.PastureGroupsModel == null)
@@ -85,10 +86,10 @@ namespace HoMiHofverwaltungssoftware.Controllers
 
             //Getting the baseline animal and assign corresponding values to the complete Animal
             var animal = _context.AnimalModel
-                .FromSqlRaw("SELECT Ordnungsgruppen_Id, Nummer AS Stallnummer, Ohrmarkennummer, Geboren, Geschlecht, Name, Tiere.Archiviert, Masttier FROM Tiere JOIN Stallnummern ON Tiere.Stallnummer_Id = Stallnummern.Id WHERE Tiere.Id = " + id.ToString())
+                .FromSqlRaw("SELECT Nummer AS Stallnummer, Ohrmarkennummer, Geboren, Geschlecht, Name, Tiere.Archiviert, " +
+                "Masttier FROM Tiere JOIN Stallnummern ON Tiere.Stallnummer_Id = Stallnummern.Id WHERE Tiere.Id = " + id.ToString())
                 .Select(currentQuery => new
                 {
-                    currentQuery.Ordnungsgruppen_Id,
                     currentQuery.Stallnummer,
                     currentQuery.Ohrmarkennummer,
                     currentQuery.Geboren,
@@ -113,7 +114,6 @@ namespace HoMiHofverwaltungssoftware.Controllers
             completeSingleAnimalModel.Archiviert = animal.Archiviert;
             completeSingleAnimalModel.Masttier = animal.Masttier;
             completeSingleAnimalModel.Stallnummer = animal.Stallnummer;
-            completeSingleAnimalModel.Ohrmarkennummer = animal.Ordnungsgruppen_Id.ToString();
 
 
             //Checking if any notes exist for this animal and adding it to the general notes list
@@ -169,7 +169,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
 
             if( _orderGroup != null ) 
             {
-                completeSingleAnimalModel.Ohrmarkennummer = _orderGroup.Bezeichnung;
+                completeSingleAnimalModel.Ordnungsgruppe = _orderGroup.Bezeichnung;
             }
 
             var _parentFinder = await _context.AnimalModel
@@ -216,7 +216,8 @@ namespace HoMiHofverwaltungssoftware.Controllers
                     completeSingleAnimalModel.Weidegruppen.Add(currentPasture.ToString());
                 }
             }
-            return completeSingleAnimalModel;
+            completeResponse.AnimalCompleteModels.Add(completeSingleAnimalModel);
+            return completeResponse;
         }
     }
 }

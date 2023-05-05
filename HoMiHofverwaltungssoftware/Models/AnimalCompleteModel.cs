@@ -9,6 +9,7 @@
         public List<string> AllgNotizen { get; set; }
         public List<PregnancyCheckupModel> TUNotizen { get; set; }
         public List<string> Weidegruppen { get; set; }
+        public string Ordnungsgruppe { get; set; }
 
         public AnimalCompleteModel()
         {
@@ -22,6 +23,7 @@
             AllgNotizen = new List<string>();
             TUNotizen = new List<PregnancyCheckupModel>();
             Weidegruppen = new List<string>();
+            Ordnungsgruppe = "Unbekannt";
         }
     }
 }
