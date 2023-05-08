@@ -10,6 +10,7 @@ using HoMiHofverwaltungssoftware.Models;
 using HoMiHofverwaltungssoftware.Responses;
 using HoMiHofverwaltungssoftware.Settings;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HoMiHofverwaltungssoftware.Controllers
 {
@@ -23,9 +24,10 @@ namespace HoMiHofverwaltungssoftware.Controllers
         {
             _context = context;
         }
-        
+
         // GET: api/Animals
-        [HttpGet]        
+        [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<AnimalSimpleResponse>> GetSimpleAnimals()
         {   
             if (_context.AnimalModel == null)
@@ -65,6 +67,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
 
         // GET: api/Animals/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<AnimalCompleteResponse>> GetAnimalModel(int id)
         {
             //Checks if the correct _context exist before trying to access it.
@@ -218,6 +221,40 @@ namespace HoMiHofverwaltungssoftware.Controllers
             }
             completeResponse.AnimalCompleteModels.Add(completeSingleAnimalModel);
             return completeResponse;
+        }
+
+        // PUT: api/animals/5
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<IActionResult> PutAnimalModel(int id, AnimalCompleteModel animalModel)
+        {
+            if (id != animalModel.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(animalModel).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AnimalModelExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return NoContent();
+        }
+        private bool AnimalModelExists(int id)
+        {
+            return (_context.AnimalModel?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
