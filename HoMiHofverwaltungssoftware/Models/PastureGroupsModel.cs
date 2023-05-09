@@ -12,5 +12,10 @@ namespace HoMiHofverwaltungssoftware.Models
         {
             Bezeichnung = string.Empty;
         }
+        public PastureGroupsModel(int id, string bezeichnung)
+        {
+            Id = id;
+            Bezeichnung = bezeichnung;
+        }
     }
 }

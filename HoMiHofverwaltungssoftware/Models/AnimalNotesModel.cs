@@ -15,5 +15,11 @@ namespace HoMiHofverwaltungssoftware.Models
         {
             Notiz = string.Empty;
         }
+        public AnimalNotesModel(int id, int tiere_Id, string notiz)
+        {
+            Id = id;
+            Tiere_Id = tiere_Id;
+            Notiz = notiz;
+        }
     }
 }

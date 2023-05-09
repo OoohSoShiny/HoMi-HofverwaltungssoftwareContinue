@@ -6,9 +6,9 @@
     {
         public string Vatertier { get; set; }
         public string Muttertier { get; set; }
-        public List<string> AllgNotizen { get; set; }
+        public List<AnimalNotesModel> AllgNotizen { get; set; }
         public List<PregnancyCheckupModel> TUNotizen { get; set; }
-        public List<string> Weidegruppen { get; set; }
+        public List<PastureGroupsModel> Weidegruppen { get; set; }
         public string Ordnungsgruppe { get; set; }
 
         public AnimalCompleteModel()
@@ -20,9 +20,9 @@
             Masttier = false;
             Vatertier = "Unbekannt";
             Muttertier = "Unbekannt";
-            AllgNotizen = new List<string>();
+            AllgNotizen = new List<AnimalNotesModel>();
             TUNotizen = new List<PregnancyCheckupModel>();
-            Weidegruppen = new List<string>();
+            Weidegruppen = new List<PastureGroupsModel>();
             Ordnungsgruppe = "Unbekannt";
         }
     }

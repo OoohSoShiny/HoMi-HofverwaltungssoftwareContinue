@@ -121,7 +121,9 @@ namespace HoMiHofverwaltungssoftware.Controllers
                 .FromSqlRaw("SELECT * FROM Tiernotizen WHERE Tiere_Id = " + id.ToString())
                 .Select(currentQuery => new
                 {
-                    currentQuery.Notiz
+                    currentQuery.Id,
+                    currentQuery.Tiere_Id,
+                    currentQuery.Notiz,                          
                 })
                 .ToListAsync();
 
@@ -129,7 +131,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             {
                 foreach (var note in notes)
                 {
-                    completeSingleAnimalModel.AllgNotizen.Add(note.Notiz);
+                    completeSingleAnimalModel.AllgNotizen.Add(new AnimalNotesModel(note.Id, note.Tiere_Id, note.Notiz));
                 }
             }
 
@@ -198,14 +200,15 @@ namespace HoMiHofverwaltungssoftware.Controllers
             }
 
             var _pastureGroupFinder = await _context.PastureGroupsModel
-                .FromSqlRaw("SELECT Bezeichnung " +
+                .FromSqlRaw("SELECT Bezeichnung, Weidegruppen.id " +
                 "FROM Weidegruppen " +
                 "JOIN Weidegruppenzuordnung " +
                 "ON Weidegruppen.Id = Weidegruppenzuordnung.Weidegruppen_Id " +
                 "WHERE Weidegruppenzuordnung.Tiere_Id = " + id)
                 .Select(currentQuery => new
                 {
-                    currentQuery.Bezeichnung
+                    currentQuery.Bezeichnung,
+                    currentQuery.Id
                 })
                 .ToListAsync();
 
@@ -213,7 +216,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
             {
                 foreach (var currentPasture in _pastureGroupFinder)
                 {
-                    completeSingleAnimalModel.Weidegruppen.Add(currentPasture.ToString());
+                    completeSingleAnimalModel.Weidegruppen.Add(new PastureGroupsModel(currentPasture.Id, currentPasture.Bezeichnung));
                 }
             }
             completeResponse.AnimalCompleteModels.Add(completeSingleAnimalModel);

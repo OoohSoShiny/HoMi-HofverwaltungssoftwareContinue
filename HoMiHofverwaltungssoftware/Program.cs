@@ -3,8 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using HoMiHofverwaltungssoftware.Data;
 
 
-// Zeilen 8 - 29 sind automatisch generiert.
-
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<HoMiHofverwaltungssoftwareContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("HoMiHofverwaltungssoftwareContext") ?? throw new InvalidOperationException("Connection string 'HoMiHofverwaltungssoftwareContext' not found.")));
