@@ -29,7 +29,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<AnimalSimpleResponse>> GetSimpleAnimals()
-        {   
+        {
             if (_context.AnimalModel == null)
             {
                 return NotFound();
@@ -39,19 +39,19 @@ namespace HoMiHofverwaltungssoftware.Controllers
 
             var _animal = await _context.AnimalModel
                 .FromSqlRaw("SELECT Tiere.Id, Nummer AS Stallnummer, Ohrmarkennummer " +
-                "FROM Tiere " +                
+                "FROM Tiere " +
                 "JOIN Stallnummern ON Tiere.Stallnummer_Id = Stallnummern.Id ")
-                .Select(currentquery => new 
+                .Select(currentquery => new
                 {
                     currentquery.Id,
                     currentquery.Ohrmarkennummer,
-                    currentquery.Stallnummer                    
+                    currentquery.Stallnummer
                 })
-                .ToListAsync();         
+                .ToListAsync();
 
             if (_animal != null)
             {
-                foreach (var item in _animal) 
+                foreach (var item in _animal)
                 {
                     AnimalSimpleModel animalSimpleModel = new AnimalSimpleModel();
                     animalSimpleModel.Ohrmarkennummer = item.Ohrmarkennummer;
@@ -104,7 +104,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
                 .FirstOrDefault();
 
             //If the baseline animal does not exist returns 404
-            if(animal == null)
+            if (animal == null)
             {
                 return NotFound();
             }
@@ -126,7 +126,7 @@ namespace HoMiHofverwaltungssoftware.Controllers
                 {
                     currentQuery.Id,
                     currentQuery.Tiere_Id,
-                    currentQuery.Notiz,                          
+                    currentQuery.Notiz,
                 })
                 .ToListAsync();
 
@@ -142,16 +142,16 @@ namespace HoMiHofverwaltungssoftware.Controllers
             //Adding all pregnancy check notes to the pregnancy check list
             var pregnancyCheck = await _context.PregnancyCheckupModel
                 .FromSqlRaw("SELECT * FROM Traechtigkeitsuntersuchung WHERE Tiere_Id = " + id.ToString())
-                .Select(currentQuery => new 
-                {                     
+                .Select(currentQuery => new
+                {
                     currentQuery.Id,
                     currentQuery.Notiz,
                     currentQuery.Termin
                 })
                 .ToListAsync();
-            if( pregnancyCheck != null )
+            if (pregnancyCheck != null)
             {
-                foreach(var _check in pregnancyCheck)
+                foreach (var _check in pregnancyCheck)
                 {
                     PregnancyCheckupModel checkConstructor = new PregnancyCheckupModel();
                     checkConstructor.Tiere_Id = id;
@@ -172,18 +172,19 @@ namespace HoMiHofverwaltungssoftware.Controllers
                 })
                 .FirstOrDefaultAsync();
 
-            if( _orderGroup != null ) 
+            if (_orderGroup != null)
             {
                 completeSingleAnimalModel.Ordnungsgruppe = _orderGroup.Bezeichnung;
             }
 
+
             var _parentFinder = await _context.AnimalModel
-                .FromSqlRaw("SELECT Ohrmarkennummer FROM Tiere " + 
+                .FromSqlRaw("SELECT Ohrmarkennummer FROM Tiere " +
                     "LEFT JOIN Deckungen ON Deckungen.Muttertier = Tiere.Id " +
                     "WHERE Deckungen.Kindtier = " + id + " " +
                     "UNION " +
                     "SELECT Ohrmarkennummer FROM Tiere " +
-                    "LEFT JOIN Deckungen ON Deckungen.Vatertier = Tiere.Id "+ 
+                    "LEFT JOIN Deckungen ON Deckungen.Vatertier = Tiere.Id " +
                     "WHERE Deckungen.Kindtier = " + id)
                 .Select(currentQuery => new
                 {
@@ -191,13 +192,15 @@ namespace HoMiHofverwaltungssoftware.Controllers
                 })
                 .ToListAsync();
 
-            for(int i = 0;  i < _parentFinder.Count; i++)
+            for (int i = 0; i < _parentFinder.Count; i++)
             {
                 switch (i)
                 {
-                    case 0: completeSingleAnimalModel.Muttertier = _parentFinder[0].ToString();
+                    case 0:
+                        completeSingleAnimalModel.Muttertier = _parentFinder[0].ToString();
                         break;
-                    case 1: completeSingleAnimalModel.Vatertier = _parentFinder[1].ToString();
+                    case 1:
+                        completeSingleAnimalModel.Vatertier = _parentFinder[1].ToString();
                         break;
                 }
             }

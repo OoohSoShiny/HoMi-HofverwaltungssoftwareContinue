@@ -17,7 +17,6 @@ namespace HoMiHofverwaltungssoftware.Attributes
                 return;
             }
 
-            bool user = context.HttpContext.Request.Headers.ContainsKey("1111");
             AuthenticationHeaderValue? authHeader = AuthenticationHeaderValue.Parse(context.HttpContext.Request.Headers["Authorization"]);
             byte[] credentialBytes = Convert.FromBase64String(authHeader.Parameter == null ? "" : authHeader.Parameter);
             var credentials = Encoding.UTF8.GetString(credentialBytes).Split(':', 2);
